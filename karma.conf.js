@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Fri Feb 28 2014 22:55:52 GMT-0500 (Eastern Standard Time)
+// Generated on Sat Mar 01 2014 18:04:39 GMT-0500 (EST)
 
 module.exports = function(config) {
   config.set({
@@ -9,14 +9,15 @@ module.exports = function(config) {
 
 
     // frameworks to use
-    frameworks: ['jasmine', 'requirejs'],
+    frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'test-main.js',
-      {pattern: 'client/*.js', included: false},
-      {pattern: 'test/*.js', included: false}
+      {pattern: 'lib/jquery.js', included: true},
+      {pattern: 'lib/highcharts.js', included: true},
+      {pattern: 'client/*.js', included: true},
+      {pattern: 'test/*.js', included: true}
     ],
 
 
@@ -58,6 +59,12 @@ module.exports = function(config) {
     // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
     browsers: ['Chrome'],
 
+
+    plugins: [
+      'karma-chrome-launcher',
+      'karma-script-launcher',
+      'karma-jasmine'
+    ],
 
     // If browser does not capture in given timeout [ms], kill it
     captureTimeout: 60000,

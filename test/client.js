@@ -1,6 +1,8 @@
 describe("client", function(){
-   var foo = bar;
-   it("foo is bar", function(){
-       expect(foo).toBe("bar") ;
-   });
+  describe("init", function(){
+    spyOn(BDW, 'highchartStart');
+    it("calls highchartStart", function(){
+       expect(BDW.highchartStart).toHaveBeenCalled();
+    });
+  });
 });
