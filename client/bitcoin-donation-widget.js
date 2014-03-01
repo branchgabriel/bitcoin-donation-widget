@@ -1,14 +1,18 @@
 var BDW = {
     init: function(){
         BDW.highchartStart();
-        BDW.api_key = options.api_key;
+        BDW.api_key = "add yours here"; //maybe we can go with an options object later on
         BDW.base_uri = 'https://coinbase.com/api/v1';
+        BDW.getBalance();
     },
     events: function(){
         // binds for elements
+        $('#donateButton').off().on("click", BDW.showDonateForm);
+
     },
 
     highchartStart: function () {
+        // still need to clean up this to handle payment history data
         $('#chartcontainer').highcharts({
             title: {
                 text: 'Monthly Average Temperature',
@@ -76,7 +80,7 @@ var BDW = {
         });
     },
     getBalance: function(){
-       var url = 'https://coinbase.com/api/v1/account/balance'
+       var url = BDW.base_uri + '/account/balance'
         $.ajax({
             url:url,
             type:"GET",
@@ -84,10 +88,15 @@ var BDW = {
             dataType: "json",
             success:function (result) {
                 if(typeof result !== "undefined"){
-                    console.log(result);
+                   // update current total element
                 }
             }
         });
+    },
+    showDonateForm: function(){
+       // add elements for adding bitcoin
+       // or load iframe
+       // or something else I haven't discovered yet
     }
 }
 
