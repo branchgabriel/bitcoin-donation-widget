@@ -1,10 +1,15 @@
 var BDW = {
     init: function(){
-       //Coinbase = require("coinbase-node");
         BDW.highchartStart();
+        BDW.api_key = options.api_key;
+        BDW.base_uri = 'https://coinbase.com/api/v1';
     },
+    events: function(){
+        // binds for elements
+    },
+
     highchartStart: function () {
-        $('#container').highcharts({
+        $('#chartcontainer').highcharts({
             title: {
                 text: 'Monthly Average Temperature',
                 x: -20 //center
@@ -50,9 +55,43 @@ var BDW = {
                 data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
             }]
         });
+    },
+    sendMoney: function(to, amount, callback, options){
+            options = options || {};
+            options.transaction = options.transaction || {};
+            options.transaction.to = options.transaction.to = to;
+            options.transaction.amount_string = amount;
+            options.transaction.amount_currency_iso = options.transaction.amount_currency_iso || 'BTC';
+            options.transaction.notes = options.notes;
+        $.ajax({
+            url: BDW.base_uri + '/transactions/send_money',
+            type:"POST",
+            data: {"api_key":BDW.api_key, "options": options },
+            dataType: "json",
+            success:function (result) {
+                if(typeof result !== "undefined"){
+                    callback();
+                }
+            }
+        });
+    },
+    getBalance: function(){
+       var url = 'https://coinbase.com/api/v1/account/balance'
+        $.ajax({
+            url:url,
+            type:"GET",
+            data: {"api_key":BDW.api_key},
+            dataType: "json",
+            success:function (result) {
+                if(typeof result !== "undefined"){
+                    console.log(result);
+                }
+            }
+        });
     }
+}
 
-};
+
 
 //
 //var client = new Coinbase.Client({
