@@ -4,7 +4,23 @@
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script language="javascript" src="../client/bitcoin-donation-widget.js"></script>
     <link rel="stylesheet" href="../css/styles.css">
+    <script language="JavaScript">
+        $.ajax({url:"https://api.trello.com/1/board/52f3feeb07e6f51c53f7ea4d/cards",
+            type: "GET",
+            data: {token:"8233ec2524d1c48fcb44ac6c4371289d8e4418b5b64e42837ffb922ad2956eb0",
+                   fields:"all",
+                   member_fields:"fullName",
+                   key:"6e3df77c1f05d93cb5afa32ed468ce98"},
+            dataType: "json",
+            success: function (result) {
+                if (typeof result !== "undefined") {
+                  console.log(result);
+                }
+            }
 
+    });
+
+    </script>
 </head>
 
 <div class="widget">

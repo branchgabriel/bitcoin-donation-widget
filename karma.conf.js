@@ -9,22 +9,22 @@ module.exports = function(config) {
 
 
     // frameworks to use
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine','requirejs'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      {pattern: 'lib/jquery.js', included: true},
-      {pattern: 'lib/highcharts.js', included: true},
       {pattern: 'client/*.js', included: true},
-      {pattern: 'test/*.js', included: true}
+      {pattern: 'test/*.js', included: true},
+      {pattern: 'node_modules/jquery/dist/jquery.min.js', included: true},
+      {pattern: 'node_modules/highcharts-node/lib/*.js', included: true},
+
+      'test/test-main.js'
     ],
 
 
     // list of files to exclude
-    exclude: [
-      
-    ],
+    exclude: [],
 
 
     // test results reporter to use
@@ -63,6 +63,7 @@ module.exports = function(config) {
     plugins: [
       'karma-chrome-launcher',
       'karma-script-launcher',
+      'karma-requirejs',
       'karma-jasmine'
     ],
 
