@@ -9,17 +9,13 @@ module.exports = function(config) {
 
 
     // frameworks to use
-    frameworks: ['jasmine','requirejs'],
+    frameworks: ['jasmine','jquery-2.1.0'],
 
 
     // list of files / patterns to load in the browser
     files: [
       {pattern: 'client/*.js', included: true},
       {pattern: 'test/*.js', included: true},
-      {pattern: 'node_modules/jquery/dist/jquery.min.js', included: true},
-      {pattern: 'node_modules/highcharts-node/lib/*.js', included: true},
-
-      'test/test-main.js'
     ],
 
 
@@ -63,8 +59,8 @@ module.exports = function(config) {
     plugins: [
       'karma-chrome-launcher',
       'karma-script-launcher',
-      'karma-requirejs',
-      'karma-jasmine'
+      'karma-jasmine',
+      'karma-jquery'
     ],
 
     // If browser does not capture in given timeout [ms], kill it
