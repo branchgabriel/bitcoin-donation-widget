@@ -31,6 +31,21 @@ var BDW = {
 
   },
 
+  getBalance: function () {
+    var url = BDW.coinbase_uri + '/account/balance'
+    $.ajax({
+      url: url,
+      type: "GET",
+      data: {"api_key": BDW.api_key},
+      dataType: "json",
+      success: function (result) {
+        if (typeof result !== "undefined") {
+          // update current total element
+        }
+      }
+    });
+  },
+
   highchartStart: function () {
     if (typeof highCharts !== "undefined") {
        console.log("OK")
@@ -56,20 +71,7 @@ var BDW = {
       }
     });
   },
-  getBalance: function () {
-    var url = BDW.base_uri + '/account/balance'
-    $.ajax({
-      url: url,
-      type: "GET",
-      data: {"api_key": BDW.api_key},
-      dataType: "json",
-      success: function (result) {
-        if (typeof result !== "undefined") {
-          // update current total element
-        }
-      }
-    });
-  },
+
   showDonateForm: function () {
     // add elements for adding bitcoin
     // or load iframe
