@@ -1,4 +1,3 @@
-
 var options = {
   chart: {
     width: 300,
@@ -11,18 +10,19 @@ var options = {
   title: {
     text: 'Highcharts rendered by Node!'
   },
-  series: [{
-    data: [ 1, 2, 3, 4, 5, 6 ]
-  }]
+  series: [
+    {
+      data: [ 1, 2, 3, 4, 5, 6 ]
+    }
+  ]
 };
 var BDW = {
   init: function () {
-
-    BDW.highchartStart();
-    BDW.api_key = "add yours here"; //maybe we can go with an options object later on
-    BDW.base_uri = 'https://coinbase.com/api/v1';
+    BDW.api_key = "add yours here"; // an options object would be best here
+    BDW.coinbase_uri = 'https://coinbase.com/api/v1';
+    BDW.events();
     BDW.getBalance();
-
+    BDW.highchartStart();
   },
 
   events: function () {
@@ -32,11 +32,11 @@ var BDW = {
   },
 
   highchartStart: function () {
-    if(typeof highCharts !== "undefined"){
-      console.log("OK");
+    if (typeof highCharts !== "undefined") {
+       console.log("OK")
     }
-
   },
+
   sendMoney: function (to, amount, callback, options) {
     options = options || {};
     options.transaction = options.transaction || {};
