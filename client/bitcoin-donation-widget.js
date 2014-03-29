@@ -1,53 +1,74 @@
-var options = {
-  chart: {
-    width: 300,
-    height: 300,
-    defaultSeriesType: 'bar'
-  },
-  legend: {
-    enabled: false
-  },
-  title: {
-    text: 'Highcharts rendered by Node!'
-  },
-  series: [
-    {
-      data: [ 1, 2, 3, 4, 5, 6 ]
-    }
-  ]
-};
 var BDW = {
-  init: function (config) {
-    BDW.coinbase_api_key = "";
-    BDW.coinbase_uri = 'https://coinbase.com/api/v1'; // default
-    BDW.applyConfig(config);
-    BDW.events();
-    BDW.getCoinbaseBalance();
-    BDW.highchartStart();
+  highChartOptions : {
+
+    chart: {
+      width: 300,
+      height: 300,
+      defaultSeriesType: 'bar'
+    },
+    legend: {
+      enabled: false
+    },
+    title: {
+      text: 'Highcharts rendered by Node!'
+    },
+    series: [
+      {
+        data: [ 1, 2, 3, 4, 5, 6 ]
+      }
+    ]
   },
 
-  isNotUndefined: function(variableToCheck){
+  // privates
+
+  __isNotUndefined: function(variableToCheck){
      return typeof variableToCheck !== "undefined";
   },
 
+  // events
+
+  event_init: function (config) {
+    // BDW defaults
+    BDW.coinbase_api_key = "";
+    BDW.coinbase_uri = 'https://coinbase.com/api/v1';
+    BDW.bitcoin_address = "";
+
+    BDW.applyConfig(config);
+
+    BDW.event_viewBinds();
+    BDW.api_getCoinbaseBalance();
+    BDW.event_highchartStart();
+  },
+
   applyConfig: function(config){
-    if(BDW.isNotUndefined(config)){
-      if(BDW.isNotUndefined(config.coinbase_api_key)) {
+    if(BDW.__isNotUndefined(config)){
+      if(BDW.__isNotUndefined(config.coinbase_api_key)) {
         BDW.coinbase_api_key = config.coinbase_api_key;
       }
-      if(BDW.isNotUndefined(config.coinbase_uri)){
+      if(BDW.__isNotUndefined(config.coinbase_uri)){
         BDW.coinbase_uri = config.coinbase_uri;
+      }
+      if(BDW.__isNotUndefined(config.bitcoin_address)){
+        BDW.bitcoin_address = config.bitcoin_address;
       }
     }
   },
 
-  events: function () {
+  event_viewBinds: function () {
     // binds for elements
     $('#donateButton').off().on("click", BDW.showDonateForm);
 
   },
 
-  getCoinbaseBalance: function () {
+  event_highchartStart: function () {
+    if (!BDW.__isNotUndefined(highCharts)) {
+
+    }
+  },
+
+  // api calls
+
+  api_getCoinbaseBalance: function () {
     var url = BDW.coinbase_uri + '/account/balance'
     $.ajax({
       url: url,
@@ -62,13 +83,7 @@ var BDW = {
     });
   },
 
-  highchartStart: function () {
-    if (typeof highCharts !== "undefined") {
-       console.log("OK")
-    }
-  },
-
-  sendMoney: function (to, amount, callback, options) {
+  api_sendMoney: function (to, amount, callback, options) {
     options = options || {};
     options.transaction = options.transaction || {};
     options.transaction.to = options.transaction.to = to;
@@ -87,6 +102,8 @@ var BDW = {
       }
     });
   },
+
+  // view
 
   showDonateForm: function () {
     // add elements for adding bitcoin
