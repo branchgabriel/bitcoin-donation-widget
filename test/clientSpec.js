@@ -16,7 +16,7 @@ describe("client", function(){
     });
     beforeEach(function(){
        spyOn(BDW, 'event_viewBinds');
-       spyOn(BDW, 'applyConfig').andCallThrough();
+       spyOn(BDW, '__applyConfig').andCallThrough();
        spyOn(BDW, 'api_getCoinbaseBalance');
        spyOn(BDW, 'event_highchartStart');
     });
@@ -40,7 +40,7 @@ describe("client", function(){
        BDW.event_init();
        expect(BDW.event_highchartStart).toHaveBeenCalled();
     });
-    describe("applyConfig", function(){
+    describe("__applyConfig", function(){
       it(" will apply config options to namespaced vars", function(){
         var config = { coinbase_api_key: "foo",
           coinbase_uri: "http://foo.com",

@@ -1,6 +1,5 @@
 var BDW = {
   highChartOptions : {
-
     chart: {
       width: 300,
       height: 300,
@@ -25,22 +24,7 @@ var BDW = {
      return typeof variableToCheck !== "undefined";
   },
 
-  // events
-
-  event_init: function (config) {
-    // BDW defaults
-    BDW.coinbase_api_key = "";
-    BDW.coinbase_uri = 'https://coinbase.com/api/v1';
-    BDW.bitcoin_address = "";
-
-    BDW.applyConfig(config);
-
-    BDW.event_viewBinds();
-    BDW.api_getCoinbaseBalance();
-    BDW.event_highchartStart();
-  },
-
-  applyConfig: function(config){
+  __applyConfig: function(config){
     if(BDW.__isNotUndefined(config)){
       if(BDW.__isNotUndefined(config.coinbase_api_key)) {
         BDW.coinbase_api_key = config.coinbase_api_key;
@@ -52,6 +36,21 @@ var BDW = {
         BDW.bitcoin_address = config.bitcoin_address;
       }
     }
+  },
+
+  // events
+
+  event_init: function (config) {
+    // BDW defaults
+    BDW.coinbase_api_key = "";
+    BDW.coinbase_uri = 'https://coinbase.com/api/v1';
+    BDW.bitcoin_address = "";
+
+    BDW.__applyConfig(config);
+
+    BDW.event_viewBinds();
+    BDW.api_getCoinbaseBalance();
+    BDW.event_highchartStart();
   },
 
   event_viewBinds: function () {
@@ -81,6 +80,11 @@ var BDW = {
         }
       }
     });
+  },
+
+  api_getAllAddressData: function(){
+     // call firebase api and get address's
+
   },
 
   api_sendMoney: function (to, amount, callback, options) {
