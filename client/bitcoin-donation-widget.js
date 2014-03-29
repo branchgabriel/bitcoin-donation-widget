@@ -17,12 +17,28 @@ var options = {
   ]
 };
 var BDW = {
-  init: function () {
-    BDW.api_key = "add yours here"; // an options object would be best here
-    BDW.coinbase_uri = 'https://coinbase.com/api/v1';
+  init: function (config) {
+    BDW.coinbase_api_key = "";
+    BDW.coinbase_uri = 'https://coinbase.com/api/v1'; // default
+    BDW.applyConfig(config);
     BDW.events();
-    BDW.getBalance();
+    BDW.getCoinbaseBalance();
     BDW.highchartStart();
+  },
+
+  isNotUndefined: function(variableToCheck){
+     return typeof variableToCheck !== "undefined";
+  },
+
+  applyConfig: function(config){
+    if(BDW.isNotUndefined(config)){
+      if(BDW.isNotUndefined(config.coinbase_api_key)) {
+        BDW.coinbase_api_key = config.coinbase_api_key;
+      }
+      if(BDW.isNotUndefined(config.coinbase_uri)){
+        BDW.coinbase_uri = config.coinbase_uri;
+      }
+    }
   },
 
   events: function () {
@@ -31,7 +47,7 @@ var BDW = {
 
   },
 
-  getBalance: function () {
+  getCoinbaseBalance: function () {
     var url = BDW.coinbase_uri + '/account/balance'
     $.ajax({
       url: url,
