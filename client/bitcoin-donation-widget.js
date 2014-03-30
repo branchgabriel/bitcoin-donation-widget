@@ -1,3 +1,5 @@
+//var Firebase = require(['firebase']);
+
 var BDW = {
   highChartOptions : {
     chart: {
@@ -109,7 +111,7 @@ var BDW = {
 
   // view
 
-  showDonateForm: function () {
+  view_showDonateForm: function () {
     // add elements for adding bitcoin
     // or load iframe
     // or something else I haven't discovered yet
